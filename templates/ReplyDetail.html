@@ -1,0 +1,163 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+        "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
+    <meta name="author" content="order by dede58.com/"/>
+    <title>TCM智能问答系统</title>
+    <script type="text/javascript" src="/static/script/jquery-1.7.2.min.js"></script>
+    <script type="text/javascript" src="/static/script/jquery.nicescroll.min.js"></script>
+    <script type="text/javascript" src="/static/script/echarts.min.js"></script>
+    {#    <script type="application/javascript" src="/static/script/kg.js"></script>#}
+    <link href="/static/css/reset.css" rel="stylesheet" type="text/css"/>
+    <link href="/static/css/qa-detail.css" rel="stylesheet" type="text/css"/>
+    <link rel="stylesheet" type="text/css" href="/static/css/kg.css"/>
+    <script>
+        $(document).ready(
+            function () {
+                $("body").niceScroll({
+                    cursorwidth: "10px",
+                    horizrailenabled: false
+                });
+            }
+        );
+    </script>
+
+
+</head>
+
+
+<body style="margin-left: 0px;">
+
+<form method="post" action="#" id="form1">
+    <div id="main">
+        <h1>{{ qa_detail.query }}</h1>
+        <ul class="sub-title">
+            <li>时间：{{ qa_detail.start_time }}</li>
+        </ul>
+        <div class="contain-q">实体识别：{{ qa_detail.head }}({{ qa_detail.label }})</div>
+        <div class="contain-q">关系分类：{{ qa_detail.relation }}</div>
+        <div class="title-answer"></div>
+        <div class="contain-a">{{ qa_detail.answer }}</div>
+        <div class="tips">
+            以上回复内容，仅作参考，详情请咨询专业医师。
+        </div>
+    </div>
+
+    </div>
+    <div style="display: none">
+        <input type="submit" name="Button1" value="Button" id="Button1"><input type="submit" name="Button2"
+                                                                               value="Button" id="Button2"><input
+            type="submit" name="Button3" value="Button" id="Button3">
+    </div>
+    <div id="chart"></div>
+    <div id="divCount">
+        <div class="title">以上内容对您是否有帮助？</div>
+        <a class="emo-enjoy" onclick="$('#Button1').click();" title="有帮助"><i></i>
+            <h2>3</h2></a>
+        <a class="emo-happy" onclick="$('#Button2').click();" title="无帮助"><i></i>
+            <h2>1</h2></a>
+        {#        <a class="emo-nature" onclick="$('#Button3').click();" title="一般"><i></i>#}
+        {#            <h2>3</h2></a>#}
+    </div>
+</form>
+
+
+<script type="text/javascript">
+    var myChart = echarts.init(document.getElementById('chart'));
+    console.log("到这里了");
+    {#var triples = eval({{ triples|safe }});#}
+    {#var triples = {{ triples|safe }};#}
+    {#console.log(triples)#}
+
+
+    {#var categories = [{name: "头实体"}, {name: "尾实体"}, {name: "属性"}];#}
+    var categories = {{ categories|safe }};
+    option = {
+        // 图的标题
+        title: {
+            text: ''
+        },
+        // 提示框的配置
+        tooltip: {
+            formatter: function (x) {
+                return x.data.des;
+            }
+        },
+        // 工具箱
+        toolbox: {
+            // 显示工具箱
+            show: true,
+            feature: {
+                mark: {
+                    show: true
+                },
+                // 还原
+                restore: {
+                    show: true
+                },
+                // 保存为图片
+                saveAsImage: {
+                    show: true
+                }
+            }
+        },
+        // 图例
+        legend: [{
+            // selectedMode: 'single',
+            data: categories.map(function (a) {
+                return a.name;
+            })
+        }],
+        series: [{
+            type: 'graph', // 类型:关系图
+            layout: 'force', //图的布局，类型为力导图
+            symbolSize: 40, // 调整节点的大小
+            roam: true, // 是否开启鼠标缩放和平移漫游。默认不开启。如果只想要开启缩放或者平移,可以设置成 'scale' 或者 'move'。设置成 true 为都开启
+            edgeSymbol: ['circle', 'arrow'],
+            edgeSymbolSize: [2, 10],
+            edgeLabel: {
+                normal: {
+                    textStyle: {
+                        fontSize: 20
+                    }
+                }
+            },
+            force: {
+                repulsion: 1000, //路径长度
+                edgeLength: [10, 50]
+            },
+            draggable: true,
+            lineStyle: {
+                normal: {
+                    width: 2,
+                    color: '#4b565b',
+                }
+            },
+            edgeLabel: {
+                normal: {
+                    show: true,
+                    formatter: function (x) {
+                        return x.data.name;
+                    }
+                }
+            },
+            label: {
+                normal: {
+                    show: true,
+                    textStyle: {}
+                }
+            },
+
+            // 数据
+            data: {{ node|safe }},
+            links: {{ link|safe }},
+            categories: categories,
+        }]
+    };
+    myChart.setOption(option);
+</script>
+</body>
+
+
+</html>

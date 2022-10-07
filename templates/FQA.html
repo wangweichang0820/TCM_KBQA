@@ -1,0 +1,215 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+        "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
+    <meta name="author" content="order by dede58.com/"/>
+    <title>TCM智能问答系统</title>
+    <script type="text/javascript" src="/static/script/jquery-1.7.2.min.js"></script>
+    <script type="text/javascript" src="/static/script/index.js"></script>
+    <script type="text/javascript" src="/static/script/jquery.confirm.js"></script>
+    <script type="text/javascript" src="/static/script/jquery.nicescroll.min.js"></script>
+    <script src="/static/script/jquery-scrolltofixed.js"></script>
+    <link href="/static/css/reset.css" rel="stylesheet" type="text/css">
+    <link href="/static/css/main.css" rel="stylesheet" type="text/css">
+    <link href="/static/css/subpage.css" rel="stylesheet" type="text/css">
+    <script>
+        $(document).ready(
+            function () {
+                $("#col-r").niceScroll({
+                    cursorwidth: "10px",
+                    horizrailenabled: false
+                });
+            }
+        );
+    </script>
+
+
+</head>
+
+
+<body>
+
+<form method="post" action="#" id="form1">
+
+
+    <div id="header">
+
+
+        <div class="logo"></div>
+
+        <div class="main-nav">
+            <ul>
+                <li class="current"><a href={{ url_for('QA_mian') }}>问答首页</a></li>
+                <li class="nav-qa"><a href={{ url_for('FQA') }} class="current">常见问题</a></li>
+            </ul>
+            <div class="sub-nav">
+                <a class="login slider" href="#"><span>登录</span></a>
+            </div>
+        </div>
+
+
+        <div style="display: none">
+            <input type="submit" name="ctl00$Top$LogOut" value="Button" id="Top_LogOut"/>
+        </div>
+
+    </div>
+
+    <div>
+
+
+        <div class="header-banner-top reply-header">
+
+            <div class="header-banner-img">
+                <div class="header-banner-content">
+                    <h1>查找答案，解决问题</h1>
+                    <div class="reply-search">
+                        <input class="input-area" name="" type="text" placeholder="搜索问答汇总">
+                        <input class="input-btn" name="" type="button" onclick="Search()">
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="wrapper">
+            <div class="subpage-title">问题分类</div>
+            <div class="qa-nav">
+                <div class="qa-list">
+                    <a href={{ url_for('qa_label_list',label='DES') }}>
+                        <div class="qa-nav-content">
+                            <div class="qa-num">
+                    <span class="timer count-title" data-speed="700"
+                          data-to={{ DES_num }}></span><i>条</i>
+                            </div>
+                            <h1>疾病</h1>
+                            <p>对人体正常形态与功能的偏离</p>
+                        </div>
+                    </a>
+                </div>
+                <div class="qa-list">
+                    <a href={{ url_for('qa_label_list',label='SYN') }}>
+                        <div class="qa-nav-content">
+                            <div class="qa-num">
+                    <span class="timer count-title" data-speed="700"
+                          data-to={{ SYN_num }}></span><i>条</i>
+                            </div>
+                            <h1>证候</h1>
+                            <p>证的外候，即疾病过程中一定阶段的病位、病因、病性、病势及机体抗病能力的强弱等本质有机联系的反应状态，表现为临床可被观察到的症状等。</p>
+
+                        </div>
+                    </a>
+                </div>
+                <div class="qa-list">
+                    <a href={{ url_for('qa_label_list',label='SYM') }}>
+                        <div class="qa-nav-content">
+                            <div class="qa-num">
+                    <span class="timer count-title" data-speed="700"
+                          data-to={{ SYM_num }}></span><i>条</i>
+                            </div>
+                            <h1>症状</h1>
+                            <p>疾病过程中机体内的一系列机能、代谢和形态结构异常变化所引起的病人主观上的异常感觉或某些客观病态改变称为症状</p>
+                        </div>
+                    </a>
+                </div>
+                <div class="qa-list">
+                    <a href={{ url_for('qa_label_list',label='MED') }}>
+                        <div class="qa-nav-content">
+                            <div class="qa-num">
+                    <span class="timer count-title" data-speed="700"
+                          data-to={{ MED_num }}></span><i>条</i>
+                            </div>
+                            <h1>药物</h1>
+                            <p>中药主要由植物药（根、茎、叶、果）和矿物药组成。因植物药占中药的大多数，所以中药也称中草药。</p>
+                        </div>
+                    </a>
+                </div>
+                <div class="qa-list">
+                    <a href={{ url_for('qa_label_list',label='PRE') }}>
+                        <div class="qa-nav-content">
+                            <div class="qa-num">
+                    <span class="timer count-title" data-speed="700"
+                          data-to={{ PRE_num }}></span><i>条</i>
+                            </div>
+                            <h1>方剂</h1>
+                            <p>方剂是治法的体现，是根据配伍原则，总结临床经验，以若干药物配合组成的药方。</p>
+                        </div>
+                    </a>
+                </div>
+                <div class="qa-list">
+                    <a href={{ url_for('qalist') }}>
+                        <div class="qa-nav-content">
+                            <div class="qa-num">
+                    <span class="timer count-title" data-speed="700"
+                          data-to={{ total_num }}></span><i>条</i>
+                            </div>
+                            <h1>全部</h1>
+                            <p></p>
+                        </div>
+                    </a>
+                </div>
+            </div>
+        </div>
+        <div class="wrapper-line"></div>
+        <div class="wrapper">
+            <div class="subpage-title">最新问答</div>
+            <div class="wrapper">
+                <ul class="new-reply-list"><!--显示三条最新回复-->
+                    {% for qa in qa_list %}
+                        <li>
+                            <a class="slider" href={{ url_for('replydetail',id = qa.ID) }}><h1><span>问：</span>
+                                {{ qa.query }}</h1>
+                            </a>
+                            <div class="answer-content">
+                                {{ qa.answer }}
+                            </div>
+                        </li>
+                    {% endfor %}
+                </ul>
+
+            </div>
+        </div>
+
+    </div>
+
+    <div>
+
+        <div id="footer">
+            <div class="wrapper">
+                <div class="copyright">
+                    <ul>
+                        <li>单位：北京交通大学</li>
+                        <li>指导老师：周雪忠，杨扩</li>
+                        <li>作者：王为昌</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+
+    </div>
+</form>
+</body>
+
+<script>
+    function Search() {
+        var keyword = $(".input-area").val();
+        console.log(keyword);
+        if (keyword == "" || keyword == "搜索回复汇总") {
+            return;
+        }
+        if (keyword.length > 50) {
+            alert('输入不可超出50字长度！');
+        }
+        ;
+        kw = encodeURI(keyword);
+        location.href ={{ url_for('qasearch',kw=kw) }};
+    }
+</script>
+
+
+<script src="/static/script/jquery.pageslide.js"></script>
+<script>
+    $(".slider").pageslide({direction: "left", modal: "true"});
+</script>
+<script type="text/javascript" src="/static/script/jquery.number.js"></script>
+
+
+</html>

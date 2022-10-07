@@ -1,0 +1,202 @@
+{% import 'pagination.html' as helper %}
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+        "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
+    <meta name="author" content="order by dede58.com/"/>
+    <title>TCM智能问答系统</title>
+    <script type="text/javascript" src="/static/script/jquery-1.7.2.min.js"></script>
+    <script type="text/javascript" src="/static/script/index.js"></script>
+    <script type="text/javascript" src="/static/script/jquery.confirm.js"></script>
+    <script type="text/javascript" src="/static/script/jquery.nicescroll.min.js"></script>
+    <script src="/static/script/jquery-scrolltofixed.js"></script>
+    <link href="/static/css/reset.css" rel="stylesheet" type="text/css">
+    <link href="/static/css/main.css" rel="stylesheet" type="text/css">
+    <link href="/static/css/subpage.css" rel="stylesheet" type="text/css">
+    <script>
+        $(document).ready(
+            function () {
+                $("#col-r").niceScroll({
+                    cursorwidth: "10px",
+                    horizrailenabled: false
+                });
+            }
+        );
+    </script>
+
+</head>
+
+<body>
+<form method="post" action="#?Type=0001" id="form1">
+    <div id="header">
+        <div class="logo"></div>
+        <div class="main-nav">
+            <ul>
+                <li class="current"><a href={{ url_for('QA_mian') }}>问答首页</a></li>
+                <li class="nav-qa"><a href={{ url_for('FQA') }}>常见问题</a></li>
+            </ul>
+            <div class="sub-nav">
+                <a class="login slider" href=##><span>登录</span></a>
+            </div>
+        </div>
+        <div style="display: none">
+            <input type="submit" name="ctl00$Top$LogOut" value="Button" id="Top_LogOut">
+        </div>
+    </div>
+
+    <div>
+        <div class="header-banner-top header-banner-list">
+            <div class="nav-main-page">
+                {#                <div class="wrapper">#}
+                {#                    <h2>检索结果</h2>#}
+                {#                    <ul class="qa-text-list">#}
+                {#                        {% for fqa in fqa_list %}#}
+                {#                            <li>#}
+                {#                                <a class="slider" href={{ url_for('replydetail',id = fqa.id) }}>#}
+                {#                                    <h4>{{ fqa.query }}</h4>#}
+                {#                                </a>#}
+                {#                            </li>#}
+                {#                        {% endfor %}#}
+                {#                    </ul>#}
+                {#                </div>#}
+            </div>
+        </div>
+
+        <div class="wrapper">
+
+            <div class="qa-list-l" style="z-index: auto; position: static; top: auto;">
+                <ul id="accordion">
+                    <li>
+                        <div class="link" id="Type0001"><a href={{ url_for('qasearch',keyword =keyword) }}>检索结果</a>
+                        </div>
+                    </li>
+
+                    <li>
+                        <div class="link" id="Type0001"><a href={{ url_for('qalist') }}>问题汇总</a>
+                        </div>
+                    </li>
+
+                    <li>
+                        <div class="link" id="des"><a href={{ url_for('qa_label_list',label = 'DES') }}>疾病</a>
+                        </div>
+                    </li>
+
+                    <li>
+                        <div class="link" id="syn"><a href={{ url_for('qa_label_list',label = 'SYN') }}>证候</a></div>
+                    </li>
+
+                    <li>
+                        <div class="link" id="sym"><a href={{ url_for('qa_label_list',label = 'SYM') }}>症状</a>
+                        </div>
+                    </li>
+
+                    <li>
+                        <div class="link" id="pre"><a href={{ url_for('qa_label_list',label = 'MED') }}>药物</a></div>
+                    </li>
+
+                    <li>
+                        <div class="link" id="med"><a href={{ url_for('qa_label_list',label = 'PRE') }}>方剂</a></div>
+                    </li>
+                </ul>
+            </div>
+            <div style="display: none; width: 250px; height: 571px; float: left;"></div>
+
+            <div class="qa-list-r">
+                <div class="wrapper" style=" height: 571px; ">
+                    {#                    <div class="qa-list-title">疾病</div>#}
+                    <ul class="qa-text-list">
+                        {% for qa in qa_list %}
+                            <li>
+                                <a class="slider" href={{ url_for('replydetail',id = qa.ID) }}>
+                                    <h4>{{ qa.query }}</h4>
+                                </a>
+                            </li>
+                        {% endfor %}
+                    </ul>
+
+{#                    <div class="pages">#}
+{#                        <!-- AspNetPager V7.0.2 for VS2005 & VS2008  Copyright:2003-2007 Webdiyer (www.webdiyer.com) -->#}
+{#                        <div id="ContentPlaceHolder1_AspNetPager1">#}
+{##}
+{#                            <!-- AspNetPager V7.0.2 for VS2005 & VS2008  Copyright:2003-2007 Webdiyer (www.webdiyer.com) -->#}
+{#                            <div id="WebContent_QaTypeList_PagerList_AspNetPager1">#}
+{#                                <div style="float:left;width:50%;">#}
+{#                                    <div>找到符合条件的记录15条,共2页</div>#}
+{#                                </div>#}
+{#                                <div style="width:50%;float:left;">#}
+{#                                    {{ helper.render_pagination(fqa_list,'admin.emp_list') }}#}
+{##}
+{#                                </div>#}
+{#                            </div>#}
+{#                            <!-- AspNetPager V7.0.2 for VS2005 & VS2008 End -->#}
+{##}
+{##}
+{#                        </div>#}
+{#                        <!-- AspNetPager V7.0.2 for VS2005 & VS2008 End -->#}
+{##}
+{#                    </div>#}
+                </div>
+            </div>
+
+        </div>
+
+    </div>
+
+    <div>
+
+        <div id="footer">
+            <div class="wrapper">
+                {#                <ul class="footer-ul">#}
+                {#                    <li>#}
+                {#                        <h2>帮助</h2>#}
+                {#                        <ul class="subnav-link">#}
+                {#                            <li><a href="http://113.108.219.40/Approve/ContactUs.aspx" target="_blank">业务咨询电话</a></li>#}
+                {#                            <li><a href="http://113.108.219.40/Approve/guide.aspx" target="_blank">办事指南</a></li>#}
+                {#                            <li><a href="http://113.108.219.40/Approve/Enchiridion.aspx" target="_blank">三库一平台信息登记指引</a>#}
+                {#                            </li>#}
+                {#                        </ul>#}
+                {#                    </li>#}
+                {#                    <li>#}
+                {#                        <h2>相关链接</h2>#}
+                {#                        <ul class="subnav-link">#}
+                {#                            <li><a href="http://www.gdcic.gov.cn" target="_blank">广东省住房和城乡建设厅</a></li>#}
+                {#                            <li><a href="http://www.gdcic.net" target="_blank">广东建设信息网</a></li>#}
+                {#                        </ul>#}
+                {#                    </li>#}
+                {#                </ul>#}
+                <div class="copyright">
+                    <ul>
+                        <li>单位：北京交通大学</li>
+                        <li>指导老师：周雪忠，杨扩</li>
+                        <li>作者：王为昌</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+</form>
+
+<script src="/static/script/purl.js"></script>
+<script>
+    $(document).ready(function () {
+        var type = $.url().param('Type');
+        //if (type == null) {
+        //    type = 'A';
+        //}
+        type = '#Type' + type;
+        $(type).addClass("current");
+    });
+</script>
+
+
+<script src="/static/script/jquery.pageslide.js"></script>
+<script>
+    $(".slider").pageslide({direction: "left", modal: "true"});
+</script>
+<script type="text/javascript" src="/static/script/jquery.number.js"></script>
+
+</body>
+
+</html>
